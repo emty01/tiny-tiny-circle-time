@@ -1,5 +1,5 @@
 let bigIters = 1000;
-let smallIters = 2000;
+let smallIters = 200;
 let c = 1.4;
 
 let circles = [];
@@ -7,7 +7,7 @@ let radii = [];
 let area;
 
 function setup() {
-  
+    print("hello world");
     createCanvas(1024, 1024);
     area = width * height;
     
