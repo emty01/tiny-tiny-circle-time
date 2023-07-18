@@ -7,7 +7,7 @@ let radii = [];
 let area;
 
 function setup() {
-
+    print("hellow World")
     createCanvas(windowWidth, windowHeight);
     area = windowWidth * windowHeight;
     
