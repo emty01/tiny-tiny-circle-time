@@ -7,7 +7,7 @@ let radii = [];
 let area;
 
 function setup() {
-    print("hellow World")
+
     createCanvas(windowWidth, windowHeight);
     area = windowWidth * windowHeight;
     
@@ -27,7 +27,7 @@ function setup() {
     {
         let iarea = startArea * pow(i+1,-c);
         radii[i] = sqrt(iarea/PI);
-        circles[i] = new Circ(-1,-1,0,false);
+        circles[i] = new Circ(i,-1,-1,0, 0,false);
     }
   
     //make circles
@@ -55,7 +55,9 @@ function setup() {
               break;
             }     
         }
-        circles[i] = new Circ(rx,ry,radii[i],!collided);
+        
+        
+        circles[i] = new Circ(i,rx,ry,radii[i],dist(rx,ry,windowWidth/2,windowHeight/2),!collided);
       
     }  
     
@@ -67,8 +69,18 @@ function draw() {
   stroke(235);
   for(let i = 0; i< bigIters; i++)
       {
+          let a;
+          let offset;
+          randomSeed(circles[i].index*100);
+          let rndStart;
           if(circles[i].drawable)
-              ellipse( circles[i].x, circles[i].y, circles[i].radius*2, circles[i].radius*2);  
+              {
+                rndStart = random(0,TWO_PI);
+                offset = (circles[i].distance - circles[0].distance)  * 0.2;
+                a =  map(frameCount-offset,0,90,0,TWO_PI,true);
+                arc(circles[i].x, circles[i].y, circles[i].radius*2, circles[i].radius*2, rndStart, rndStart+a);
+                //ellipse( circles[i].x, circles[i].y, circles[i].radius*2, circles[i].radius*2);  
+              }
       }
 }
 
@@ -81,4 +93,5 @@ function circleColliding(p1x, p1y,p2x, p2y, r1, r2)
     dr = dx * dx + dy * dy;
     return(dr < (r1+r2)*(r1+r2));
 }
+
 
