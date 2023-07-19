@@ -5,10 +5,15 @@ let c;
 let circles = [];
 let radii = [];
 let area;
+let smallDist = 10000;
+
+let fr = 30;
 
 function setup() {
 
     createCanvas(windowWidth, windowHeight);
+    frameRate(fr);
+  
     area = windowWidth * windowHeight;
     
     c = random(1.1,1.4);
@@ -55,9 +60,9 @@ function setup() {
               break;
             }     
         }
-        
-        
-        circles[i] = new Circ(i,rx,ry,radii[i],dist(rx,ry,windowWidth/2,windowHeight/2),!collided);
+        let distance = dist(rx,ry,windowWidth/2,windowHeight/2);
+        smallDist = min(smallDist,distance);
+        circles[i] = new Circ(i,rx,ry,radii[i],distance,!collided);
       
     }  
     
@@ -76,7 +81,7 @@ function draw() {
           if(circles[i].drawable)
               {
                 rndStart = random(0,TWO_PI);
-                offset = (circles[i].distance - circles[0].distance)  * 0.2;
+                offset = (circles[i].distance - smallDist)  * 0.1;
                 a =  map(frameCount-offset,0,90,0,TWO_PI,true);
                 arc(circles[i].x, circles[i].y, circles[i].radius*2, circles[i].radius*2, rndStart, rndStart+a);
                 //ellipse( circles[i].x, circles[i].y, circles[i].radius*2, circles[i].radius*2);  
